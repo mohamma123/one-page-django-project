@@ -33,4 +33,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         source_branch: master
         publish_branch: gh-pages
-        publish_dir: ./static
+        publish_dir: build
