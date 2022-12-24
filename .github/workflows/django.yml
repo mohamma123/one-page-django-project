@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ "gh-pages" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "gh-pages" ]
+    branches: [ "master" ]
 
 jobs:
   build:
@@ -24,13 +24,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Build Django project
+    - name: Run Tests
       run: |
-        python manage.py collectstatic --noinput
-        python manage.py makemigrations
-        python manage.py migrate
+        python manage.py test
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./static
+        source_branch: master
+        publish_branch: gh-pages
+        publish_dir: .
