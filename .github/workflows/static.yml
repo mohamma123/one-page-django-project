@@ -15,7 +15,17 @@ jobs:
           node-version: 12.x
       - run: npm install
       - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          path: './build'
+          # Include the css, images, js, sass, and webfonts directories and the home.html file in the deployment
+          include_patterns:
+            - 'css/**'
+            - 'images/**'
+            - 'js/**'
+            - 'sass/**'
+            - 'webfonts/**'
+            - 'home.html'
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
