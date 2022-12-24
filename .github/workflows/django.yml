@@ -27,13 +27,13 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+    - name: Collect static files
+      run: |
+        python manage.py collectstatic --noinput
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         source_branch: master
         publish_branch: gh-pages
-        publish_dir: myapp/static
-    - name: Copy home.html to root directory
-      run: |
-        cp myapp/templates/myapp/home.html .
+        publish_dir: ./static
