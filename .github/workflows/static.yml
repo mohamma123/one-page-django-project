@@ -37,6 +37,13 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
+          # Include the css, js, webfonts, and .nojekyll files and directories in the deployment
+          include_patterns:
+            - 'images/**'
+            - 'sass/**'
+            - 'css/**'
+            - 'js/**'
+            - 'webfonts/**'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
