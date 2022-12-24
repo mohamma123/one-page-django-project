@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm install
+      - run: npm run build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './build'
+          # Include the css, images, js, sass, and webfonts directories and the home.html file in the deployment
+          include_patterns:
+            - 'css/**'
+            - 'images/**'
+            - 'js/**'
+            - 'sass/**'
+            - 'webfonts/**'
+            - 'home.html'
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
